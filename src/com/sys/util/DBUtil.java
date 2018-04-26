@@ -12,7 +12,7 @@ import com.common.StringHelpers;
 import com.common.constants.Constant;
 
 /***
- * 建立与数据库的连接
+ * 建立与数据库的连接111111111
  * 
  * @author xiaoliang
  * 
