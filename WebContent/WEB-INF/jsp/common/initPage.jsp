@@ -1,0 +1,2 @@
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/page/center.css"/>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/common/page/common-page.js"></script>

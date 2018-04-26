@@ -1,0 +1,18 @@
+﻿var objects = [
+	{ name: "项目一", value: "1" },
+	{ name: "项目二", value: "2" },
+	{ name: "项目三", value: "3" },
+	{ name: "项目四", value: "4" },
+	{ name: "项目五", value: "5" },
+	{ name: "项目六", value: "6" },
+	{ name: "项目七", value: "7" },
+	{ name: "abc", value: "abc" },
+    	{ name: "abce", value: "abce" },
+    	{ name: "abcef", value: "abcef" },
+	{ name: "bcd", value: "bcd" },
+    	{ name: "bcdfdsaf", value: "bcd" },
+    	{ name: "bcdfds", value: "bcdfds" },
+	{ name: "cbd", value: "cbd" },
+	{ name: "efg", value: "efg" },
+	{ name: "fgdaf", value: "fgdaf" },
+	{ name: "fasfs", value: "fasfs" }];

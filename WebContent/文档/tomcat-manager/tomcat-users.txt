@@ -1,0 +1,10 @@
+1、在5.x和6.x中创建一个manager角色的用户；
+<user username="admin" password="123456" roles="manager"/>
+2、在7.x、8.x和9.x中创建一个manager角色的用户；
+ <user username="admin" password="123456" roles="manager-script"/>
+3、角色说明
+（1）manager-gui：允许访问html接口(即URL路径为/manager/html/*)
+（2）manager-script：允许访问纯文本接口(即URL路径为/manager/text/*)
+（3）manager-jmx：允许访问JMX代理接口(即URL路径/manager/jmxproxy/*)
+（4）manager-status允许访问Tomcat只读状态页面(即URL路径/manager/status/*)
+<user username="admin" password="123456" roles="manager,manager-gui,admin,manager-status,manager-jmx,manager-script"/>

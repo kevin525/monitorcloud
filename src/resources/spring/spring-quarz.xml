@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  <!-- 添加调度的任务bean 配置对应的class-->
+  <bean id="autoMonitorServerTask" class="com.apps.tasks.AutoMonitorServerTask" /> 
+  <bean id="autoMonitorAppSystemTask" class="com.apps.tasks.AutoMonitorAppSystemTask" />
+  <bean id="autoMonitorDatabaseTask" class="com.apps.tasks.AutoMonitorDatabaseTask" />
+  <bean id="autoMonitorTomcatTask" class="com.apps.tasks.AutoMonitorTomcatTask" />
+  <bean id="autoMonitorTzoawhwebTask" class="com.apps.tasks.AutoMonitorTzoawhwebTask" />
+  <!-- 调度任务一开始 -->
+  <!--配置调度具体执行的方法-->
+  <bean id="serverJobDetail"
+    class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="targetObject" ref="autoMonitorServerTask" />
+    <property name="targetMethod" value="mointorServer" />
+    <property name="concurrent" value="false" />
+  </bean>
+  <!--配置调度执行的触发的时间-->
+  <bean id="serverTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail" ref="serverJobDetail" />
+    <property name="cronExpression">
+      <!-- 每59分钟执行任务调度 -->
+      <value>0 0/10 * * * ?</value>
+    </property>
+  </bean>
+  <!-- 调度任务一结束 -->
+  
+  <!-- 调度任务二开始 -->
+  <!--配置调度具体执行的方法-->
+  <bean id="appSystemJobDetail"
+    class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="targetObject" ref="autoMonitorAppSystemTask" />
+    <property name="targetMethod" value="mointorAppSystem" />
+    <property name="concurrent" value="false" />
+  </bean>
+  <!--配置调度执行的触发的时间-->
+  <bean id="appSystemJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail" ref="appSystemJobDetail" />
+    <property name="cronExpression">
+      <!-- 每59分钟执行任务调度 --> <!-- 每天23点执行任务调度 0 0 23 * * ?     0 0/1 * * * ?-->
+      <value>0 0/20 * * * ?</value>  
+    </property>
+  </bean>
+  <!-- 调度任务二结束 -->
+  
+  
+    
+     <!-- 调度任务四开始 数据库 -->
+  <!--配置调度具体执行的方法-->
+  <bean id="databaseJobDetail"
+    class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="targetObject" ref="autoMonitorDatabaseTask" />
+    <property name="targetMethod" value="mointorDatabase" />
+    <property name="concurrent" value="false" />
+  </bean>
+  <!--配置调度执行的触发的时间-->
+  <bean id="databaseJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail" ref="databaseJobDetail" />
+    <property name="cronExpression">
+      <!-- 每59分钟执行任务调度 --> <!-- 每天23点执行任务调度 0 0 23 * * ? -->
+      <value>0 0/20 * * * ?</value>
+    </property>
+  </bean>
+  <!-- 调度任务四结束 -->
+  
+  
+   <!-- 调度任务五开始 中间件 -->
+  <!--配置调度具体执行的方法-->
+  <bean id="tomcatJobDetail"
+    class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="targetObject" ref="autoMonitorTomcatTask" />
+    <property name="targetMethod" value="mointorTomcat" />
+    <property name="concurrent" value="false" />
+  </bean>
+  <!--配置调度执行的触发的时间-->
+  <bean id="tomcatJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail" ref="tomcatJobDetail" />
+    <property name="cronExpression">
+      <!-- 每59分钟执行任务调度 --> <!-- 每天23点执行任务调度 0 0 23 * * ? -->
+      <value>0 0/10 * * * ?</value>
+    </property>
+  </bean>
+  <!-- 调度任务五结束 -->
+  
+  <!-- 调度任务六开始 监控平台 -->
+  <!--配置调度具体执行的方法-->
+  <bean id="tzoawhwebJobDetail"
+	class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <property name="targetObject" ref="autoMonitorTzoawhwebTask" />
+    <property name="targetMethod" value="mointorTzoawhweb" />
+    <property name="concurrent" value="false" />
+  </bean>
+  <!--配置调度执行的触发的时间-->
+  <bean id="tzoawhwebJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail" ref="tzoawhwebJobDetail" />
+    <property name="cronExpression">
+      <!-- 每59分钟执行任务调度 --> <!-- 每天23点执行任务调度 0 0 23 * * ? -->
+      <value>0 30 8 * * ?</value>
+    </property>
+  </bean>
+  <!-- 调度任务六结束 --> 
+    
+  <!-- quartz的调度工厂 ；调度工厂只能有一个，多个调度任务在list中添加 -->
+  <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <property name="triggers">
+      <list>
+         <!-- 所有的调度列表-->
+     <!--  
+		<ref local="tzoawhwebJobTrigger" />-->
+		<ref local="serverTrigger" /> 
+		<ref local="appSystemJobTrigger" />
+		<ref local="databaseJobTrigger" />
+		<ref local="tomcatJobTrigger" /> 
+		
+
+      </list>
+    </property>
+  </bean>
+</beans>

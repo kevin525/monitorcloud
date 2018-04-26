@@ -1,0 +1,3 @@
+1、架构：ssh（spring3.2.2 spring-MVC3.2.2 hiberater3.6.8 ）；
+2、在jdbc.properties配置数据库连接，可以配置mysq数据库连接；
+3、系统默认用户为admin，密码为123456；

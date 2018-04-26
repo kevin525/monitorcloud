@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>jQuery自动完成组件Autocomplete Demo</title>
+    <script type="text/javascript" src="../../../js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../../../js/jquery/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="localdata.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../js/jquery/jquery.autocomplete.css" />
+<script type="text/javascript">
+    $().ready(function () {
+        function log(event, data, formatted) {
+            $("#txtSelectName").val(data.name);
+            $("#txtSelectValue").val(data.value);
+        }
+
+        //objects为json数据源对象
+        $("#txtSelectName").autocomplete(objects, {
+            minChars: 0, //表示在自动完成激活之前填入的最小字符
+            max: 5, //表示列表里的条目数
+            autoFill: true, //表示自动填充
+            mustMatch: false, //表示必须匹配条目,文本框里输入的内容,必须是data参数里的数据,如果不匹配,文本框就被清空
+            matchContains: true, //表示包含匹配,相当于模糊匹配
+            scrollHeight: 200, //表示列表显示高度,默认高度为180
+
+            formatItem: function (row) {
+                return row.name;
+            },
+            formatMatch: function (row) {
+                return row.name;
+            },
+            formatResult: function (row) {
+                return row.value;
+            }
+        });
+
+        $(":text, textarea").result(log).next("#txtSelectValue").click(function () {
+            $(this).prev().search();
+        });
+    });
+</script>
+</head>
+<body>
+<div id="content">jQuery自动实现<br /><br />名称：<input type="text" id="txtSelectName" /> 值：<input type="text" id="txtSelectValue" /></div>
+</body>
+</html>
